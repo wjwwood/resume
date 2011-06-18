@@ -1,0 +1,347 @@
+%!TEX TS-program = /usr/texbin/pdflatex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %% 
+%% LaTeX to get the ``??'' replaced with the number of the last page  %% 
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[10pt]{article}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+%% Use these lines for letter-sized paper
+\usepackage[paper=letterpaper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=1in,               % 1 inch margins
+            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+%\usepackage[paper=a4paper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=30.5mm,    % Length of section titles
+%            marginparsep=1.5mm,       % Space between titles and text
+%            margin=25mm,              % 25mm margins
+%            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+%% This gives us fun enumeration environments. compactitem will be nice.
+\usepackage{paralist}
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+%                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The title (name) with a horizontal rule under it
+%
+% Usage: \makeheading{name}
+%
+% Place at top of document. It should be the first thing.
+\newcommand{\makeheading}[1]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+                {\large \bfseries #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+% The section headings
+%
+% Usage: \section{section name}
+%
+% Follow this section IMMEDIATELY with the first line of the section
+% text. Do not put whitespace in between. That is, do this:
+%
+%       \section{My Information}
+%       Here is my information.
+%
+% and NOT this:
+%
+%       \section{My Information}
+%
+%       Here is my information.
+%
+% Otherwise the top of the section header will not line up with the top
+% of the section. Of course, using a single comment character (%) on
+% empty lines allows for the function of the first example with the
+% readability of the second example.
+\renewcommand{\section}[2]%
+        {\pagebreak[2]\vspace{1.3\baselineskip}%
+         \phantomsection\addcontentsline{toc}{section}{#1}%
+         \hspace{0in}%
+         \marginpar{
+         \raggedright \scshape #1}#2}
+
+% An itemize-style list with lots of space between items
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1]}{\end{itemize}%
+         \vspace{-.6\baselineskip}}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section 
+\newenvironment{lonelist}[1][\enskip\textbullet]%
+        {\vspace{-\baselineskip}\begin{list}{#1}{%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\topsep}{0pt}}}
+        {\end{list}\vspace{-.6\baselineskip}}
+
+% An itemize-style list with little space between items
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+        {\begin{compactitem}[#1]}{\end{compactitem}}
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\makeheading{William J. Woodall}
+
+\section{Contact Information}
+%
+% NOTE: Mind where the & separators and \\ breaks are in the following
+%       table.
+%
+% ALSO: \rcollength is the width of the right column of the table 
+%       (adjust it to your liking; default is 1.85in).
+%
+\newlength{\rcollength}\setlength{\rcollength}{1.85in}%
+%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}}
+%\href{http://www.eng.auburn.edu/comp/}%
+%     {Department of Computer Science and Software Engineering} & \\
+%\href{http://www.auburn.edu/}{Auburn University}
+%                           & \textit{Voice:} (256) 345-9938 \\
+650 N Ross            & \textit{Voice:} (256) 345-9938 \\
+Apartment G8           & \textit{E-mail:}
+\href{mailto:wjwwood@gmail.com}{wjwwood@gmail.com}\\
+Auburn, AL 36830    & \textit{WWW:}
+\href{http://www.williamjwoodall.com/}{williamjwoodall.com}\\
+\end{tabular}
+
+\section{Research Interests}
+%
+Robotics, Unix Operating Systems, Computer Vision, Information Technology
+
+\section{Education}
+%
+\href{http://www.auburn.edu/}{\textbf{Auburn University}}, 
+Auburn, AL
+\begin{outerlist}
+
+\item[] B.S., 
+%        \href{www.eng.auburn.edu/comp/}{Computer Science and Software Engineering}, Senior
+        Computer Science and Software Engineering
+        \begin{innerlist}
+        \item GPA: 2.99/3.5 \emph{cumlative/major}
+        \end{innerlist}
+
+\end{outerlist}
+
+\section{Professional Experience}
+%
+\href{http://proteus.ausparc.com}{\textbf{Proteus Project, Auburn University}}, 
+Auburn, AL
+\begin{outerlist}
+
+\item[] \textit{Undergraduate Research Assistant}%
+        \hfill \textbf{Spring 2010 - Present}
+\begin{innerlist}
+\item Develop Hardware Interfaces and Design Simulations for mobile robots and UAV's
+\end{innerlist}
+
+\end{outerlist}
+
+\blankline
+
+%\href{http://virticle.com}{\textbf{Virticle Corp.}}, 
+%Auburn, AL
+%\begin{outerlist}
+%
+%\item[] \textit{Web Design Engineer}%
+%        \hfill \textbf{Summer 2009 - Present}
+%\begin{innerlist}
+%% \item Received and process help desk tickets for Maintaining Websites
+%\item Design, Implement, Maintain Websites
+%\end{innerlist}
+%
+%\end{outerlist}
+%
+%\blankline
+
+\href{http://neptunetg.com}{\textbf{Neptune Technology Group}}, 
+Tallassee, AL
+\begin{outerlist}
+
+\item[] \textit{IT CO-OP}%
+        \hfill \textbf{Summer 2007, Spring 2008, Fall 2008}
+\begin{innerlist}
+\item Received and processed all help desk calls and tickets
+\item Troubleshot/Repaired/Installed Desktops, Networks, Servers
+% \item Installed most new machines and some servers
+% \item Helped others in a data center on mission critical servers
+\end{innerlist}
+
+\end{outerlist}
+
+\blankline
+
+% \textbf{\href{http://www.waynefarmsllc.com/}{Wayne Farms, LLC} Decatur Plant}, 
+% Decatur, AL
+% \begin{outerlist}
+% 
+% \item[] \textit{AutoCAD and Drafting}%
+%         \hfill \textbf{May 2005 to August 2005}
+% \begin{innerlist}
+% \item Converted existing hard drafts into electronic drafts and cataloged them.
+% \item Updated drafts to reflect current implementations.
+% \end{innerlist}
+% 
+% \end{outerlist}
+
+\section{Relevant Experience}
+% 
+% \href{http://openroboticsplatform.org/}{Open Robotics Platform} (ORP) \hfill \textbf{Spring 2009 to present}
+% \begin{innerlist}
+% \item Founder and Developer, open-source project based on Senior Design project
+% \end{innerlist}
+% 
+% \blankline
+
+Lunar Excavator Team, Auburn University \hfill \textbf{Fall 2009 - Present}
+
+\blankline
+
+\href{http://ausparc.com/projects/show/automow-2010}{Autonomous Lawnmower Team}, Auburn University \hfill \textbf{Summer 2009 to present}
+\begin{innerlist}
+\item Lead Software Developer
+\end{innerlist}
+
+\blankline
+
+\href{http://sparc.eng.auburn.edu/}{Student Projects and Research Committee} (SPaRC) \hfill \textbf{Fall 2007 to present}
+\begin{innerlist}
+\item Project leader for 2009 hardware team; First Place at the IEEE SouthEastCON '09
+\end{innerlist}
+
+\blankline
+
+Vice-Chair \href{http://www.eng.auburn.edu/ieee/}{Auburn IEEE Student Branch} \hfill \textbf{May 2008 to May 2010}
+\begin{innerlist}
+\item Organized schedules and invited companies to meetings and events
+\end{innerlist}
+
+\blankline
+
+Auburn \href{http://www.bestinc.org/}{BEST Robotics} Student Alumni Organization \hfill \textbf{Fall 2005 to present}
+\begin{innerlist}
+\item Team mentor for \href{http://www.lee-scott.org/lsarobotics/Site/The_Warriors.html}{Lee-Scott Academy BEST Robotics Team} 
+\item Technical Expert on the floor (A-Team), at both regional and national competitions
+\end{innerlist}
+
+\section{Technical Skills} 
+%
+Experience with software and hardware related to robotics and information technology
+
+\blankline
+
+\textit{Programming}: Python, C/C++, Java, PHP, ActionScript, Ruby, Perl, javascript, SQL \\
+\null \hfill \textit{note: Languages listed in order of proficiency}
+
+\textit{Frameworks/Libraries}: OpenCV, iPhone SDK, wxWidgets, Player/Stage, ROS, Ogre3D
+
+\blankline
+
+\textit{Applications}: \LaTeX{}, iWork, Microsoft Office, Solid Edge, 3DS Max, Trac, Redmine, Basecamp, Eclipse, Netbeans, XCode, Visual Studio, GIT, SVN, PhotoShop
+
+\blankline
+
+\textit{Operating Systems}:
+\begin{innerlist}
+    \item Windows IT Experience, Linux Embedded Experience, Mac OS X personal computer
+% \item Advanced Microsoft Windows XP/Vista/Server deployment knowledge.
+% \item Advanced Linux/BSD knowledge in customized embedded solutions (Gentoo/OpenBSD)
+% \item Apple OS X user for three years, OS of choice.
+\end{innerlist}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
