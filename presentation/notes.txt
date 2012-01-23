@@ -1,0 +1,24 @@
+* Pre-collegiate
+    * BEST Robotics
+* Undergraduate College
+    * IEEE SouthEastern Conference
+    * NASA Lunar Regolith Excavator Competition
+    * ION Autonomous Lawnmower Competition
+* Graduate College
+    * ARMY Corp. AUXOS Project
+    * Autonomous Lawnmower Again
+    * NTRCI Project
+* Master's Work
+    * SegwayRMP Robot "Munster"
+    * iRobot ATRV Robot
+    * Three Dimensional Teleoperation
+        * Accepted ION Paper
+        * Master's Thesis
+* Software Portfolio
+    * Autonomous Lawnmower Overview
+    * Lunar Excavator UI
+    * Serial Library
+    * SegwayRMP Library
+* ROS Experience
+    * Autonomous Lawnmower
+    * ROS on OS X
